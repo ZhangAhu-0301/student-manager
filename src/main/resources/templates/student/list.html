@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<div style="width:800px;margin:20px auto;">
+    <h3>学生信息管理</h3>
+    <div>
+        <form th:action="@{/student/list}" method="get">
+            <input name="name" th:value="${searchName}" placeholder="输入姓名搜索">
+            <button>搜索</button>
+            <a th:href="@{/student/toAdd}"><button type="button">新增学生</button></a>
+        </form>
+    </div>
+    <table border="1" cellpadding="5" width="100%">
+        <tr>
+            <th>ID</th>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>专业</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="s:${list}">
+            <td th:text="${s.id}"></td>
+            <td th:text="${s.stuNo}"></td>
+            <td th:text="${s.stuName}"></td>
+            <td th:text="${s.gender}"></td>
+            <td th:text="${s.age}"></td>
+            <td th:text="${s.major}"></td>
+            <td>
+                <a th:href="@{/student/toEdit(id=${s.id})}">编辑</a>
+                <a th:href="@{/student/del(id=${s.id})}" onclick="return confirm('确定删除？')">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stu.studentmanager.mapper.StudentMapper">
+    <select id="list" resultType="com.stu.studentmanager.entity.Student">
+        SELECT * FROM student
+        <where>
+            <if test="name != null and name != ''">
+                stu_name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO student(stu_no, stu_name, gender, age, major)
+        VALUES (#{stuNo}, #{stuName}, #{gender}, #{age}, #{major})
+    </insert>
+    <update id="update">
+        UPDATE student SET stu_no=#{stuNo}, stu_name=#{stuName}, gender=#{gender}, age=#{age}, major=#{major} WHERE id=#{id}
+    </update>
+    <delete id="del">
+        DELETE FROM student WHERE id = #{id}
+    </delete>
+    <select id="getById" resultType="com.stu.studentmanager.entity.Student">
+        SELECT * FROM student WHERE id = #{id}
+    </select>
+</mapper>

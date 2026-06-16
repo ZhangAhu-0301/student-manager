@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<div style="width:400px;margin:100px auto;">
+    <h3>管理员登录</h3>
+    <p th:text="${msg}" style="color:red"></p>
+    <form th:action="@{/login}" method="post" id="loginForm">
+        <div>账号:<input type="text" name="username" id="uname"></div>
+        <div>密码:<input type="password" name="password" id="pwd"></div>
+        <div><input type="submit" value="登录"></div>
+    </form>
+    <script>
+        //前端表单校验
+        $("#loginForm").submit(function(){
+            let u=$("#uname").val();
+            let p=$("#pwd").val();
+            if(u==""){alert("账号不能为空");return false;}
+            if(p==""){alert("密码不能为空");return false;}
+        })
+    </script>
+</div>
+</body>
+</html>
