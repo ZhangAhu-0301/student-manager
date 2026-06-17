@@ -1,21 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>编辑学生</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<div style="width:450px;margin:30px auto;">
-    <h3>编辑学生</h3>
-    <form th:action="@{/student/update}" method="post">
-        <input type="hidden" name="id" th:value="${stu.id}">
-        <div>学号：<input name="stuNo" th:value="${stu.stuNo}"></div>
-        <div>姓名：<input name="stuName" th:value="${stu.stuName}"></div>
-        <div>性别：<input name="gender" th:value="${stu.gender}"></div>
-        <div>年龄：<input name="age" th:value="${stu.age}"></div>
-        <div>专业：<input name="major" th:value="${stu.major}"></div>
-        <div><input type="submit" value="保存"> <a th:href="@{/student/list}">返回</a></div>
-    </form>
+<body class="bg-light">
+<div class="container mt-5" style="max-width:550px;">
+    <div class="card shadow p-4">
+        <h3 class="text-center text-warning mb-4">编辑学生信息</h3>
+        <form th:action="@{/student/update}" method="post">
+            <input type="hidden" name="id" th:value="${student.id}">
+            <div class="mb-3">
+                <label class="form-label">学号</label>
+                <input type="text" name="stuNo" class="form-control" th:value="${student.stuNo}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">姓名</label>
+                <input type="text" name="stuName" class="form-control" th:value="${student.stuName}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">性别</label>
+                <input type="text" name="gender" class="form-control" th:value="${student.gender}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">年龄</label>
+                <input type="number" name="age" class="form-control" th:value="${student.age}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">专业</label>
+                <input type="text" name="major" class="form-control" th:value="${student.major}">
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-warning">保存修改</button>
+                <a th:href="@{/student/list}" class="btn btn-secondary">返回列表</a>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>
