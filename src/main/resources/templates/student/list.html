@@ -1,43 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>学生管理</title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>学生信息管理</title>
+    <!-- Bootstrap美化框架CDN -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
-<body>
-<div style="width:800px;margin:20px auto;">
-    <h3>学生信息管理</h3>
-    <div>
-        <form th:action="@{/student/list}" method="get">
-            <input name="name" th:value="${searchName}" placeholder="输入姓名搜索">
-            <button>搜索</button>
-            <a th:href="@{/student/toAdd}"><button type="button">新增学生</button></a>
-        </form>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h2 class="text-center text-primary mb-4">学生信息管理系统</h2>
+
+        <!-- 搜索区域 -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-6">
+                <form th:action="@{/student/list}" method="get" class="d-flex gap-2">
+                    <input type="text" name="name" class="form-control" placeholder="输入姓名搜索" th:value="${searchName}">
+                    <button class="btn btn-primary">搜索</button>
+                </form>
+            </div>
+            <div class="col-md-6 text-end">
+                <a th:href="@{/student/toAdd}" class="btn btn-success">新增学生</a>
+            </div>
+        </div>
+
+        <!-- 学生表格 -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>专业</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="s : ${list}">
+                    <td th:text="${s.id}"></td>
+                    <td th:text="${s.stuNo}"></td>
+                    <td th:text="${s.stuName}"></td>
+                    <td th:text="${s.gender}"></td>
+                    <td th:text="${s.age}"></td>
+                    <td th:text="${s.major}"></td>
+                    <td>
+                        <a th:href="@{/student/toEdit(id=${s.id})}" class="btn btn-sm btn-warning">编辑</a>
+                        <a th:href="@{/student/del(id=${s.id})}" class="btn btn-sm btn-danger" onclick="return confirm('确定要删除该学生数据吗？')">删除</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(list)}">
+                    <td colspan="7" class="text-muted">暂无学生数据，点击上方新增学生</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <table border="1" cellpadding="5" width="100%">
-        <tr>
-            <th>ID</th>
-            <th>学号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>年龄</th>
-            <th>专业</th>
-            <th>操作</th>
-        </tr>
-        <tr th:each="s:${list}">
-            <td th:text="${s.id}"></td>
-            <td th:text="${s.stuNo}"></td>
-            <td th:text="${s.stuName}"></td>
-            <td th:text="${s.gender}"></td>
-            <td th:text="${s.age}"></td>
-            <td th:text="${s.major}"></td>
-            <td>
-                <a th:href="@{/student/toEdit(id=${s.id})}">编辑</a>
-                <a th:href="@{/student/del(id=${s.id})}" onclick="return confirm('确定删除？')">删除</a>
-            </td>
-        </tr>
-    </table>
 </div>
 </body>
 </html>
