@@ -1,27 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>新增学生</title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
-<body>
-<div style="width:450px;margin:30px auto;">
-    <h3>新增学生</h3>
-    <form th:action="@{/student/add}" method="post" id="addForm">
-        <div>学号：<input name="stuNo" id="sno"></div>
-        <div>姓名：<input name="stuName" id="sname"></div>
-        <div>性别：<input name="gender"></div>
-        <div>年龄：<input name="age"></div>
-        <div>专业：<input name="major"></div>
-        <div><input type="submit" value="提交"> <a th:href="@{/student/list}">返回</a></div>
-    </form>
-    <script>
-        $("#addForm").submit(function(){
-            if($("#sno").val()==""){alert("学号不能为空");return false;}
-            if($("#sname").val()==""){alert("姓名不能为空");return false;}
-        })
-    </script>
+<body class="bg-light">
+<div class="container mt-5" style="max-width:550px;">
+    <div class="card shadow p-4">
+        <h3 class="text-center text-success mb-4">新增学生</h3>
+        <form th:action="@{/student/add}" method="post" id="addForm">
+            <div class="mb-3">
+                <label class="form-label">学号</label>
+                <input type="text" id="stuNo" name="stuNo" class="form-control" placeholder="请输入学号">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">姓名</label>
+                <input type="text" id="stuName" name="stuName" class="form-control" placeholder="请输入姓名">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">性别</label>
+                <input type="text" name="gender" class="form-control" placeholder="男/女">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">年龄</label>
+                <input type="number" name="age" class="form-control" placeholder="请输入年龄">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">专业</label>
+                <input type="text" name="major" class="form-control" placeholder="请输入专业">
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success">提交保存</button>
+                <a th:href="@{/student/list}" class="btn btn-secondary">返回列表</a>
+            </div>
+        </form>
+        <script>
+            $("#addForm").submit(function(){
+                if($("#stuNo").val().trim() === ""){
+                    alert("学号不能为空");
+                    return false;
+                }
+                if($("#stuName").val().trim() === ""){
+                    alert("姓名不能为空");
+                    return false;
+                }
+            })
+        </script>
+    </div>
 </div>
 </body>
 </html>
